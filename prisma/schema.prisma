@@ -1,0 +1,208 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ------------------------------------------------------
+// NEXTAUTH AUTHENTICATION SCHEMA (Ready for Google/LinkedIn)
+// ------------------------------------------------------
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+// ------------------------------------------------------
+// CORE HR PLATFORM SCHEMA
+// ------------------------------------------------------
+
+enum SystemRole {
+  SUPER_ADMIN
+  USER
+}
+
+enum OrgRole {
+  ADMIN
+  MEMBER
+  CLIENT
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  systemRole    SystemRole @default(USER)
+  
+  accounts      Account[]
+  sessions      Session[]
+  
+  memberships   OrganizationMembership[]
+  assignments   TestAssignment[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  subdomain String?  @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
+  members   OrganizationMembership[]
+  jobs      Job[]
+  assignments TestAssignment[] // Added relation to track tests given by this org
+  tests       Test[]           // Tests authored by this organization
+
+  @@map("organizations")
+}
+
+model OrganizationMembership {
+  id             String       @id @default(cuid())
+  userId         String       @map("user_id")
+  organizationId String       @map("organization_id")
+  role           OrgRole      @default(MEMBER)
+  
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  @@unique([userId, organizationId])
+  @@index([userId])
+  @@index([organizationId])
+  @@map("organization_memberships")
+}
+
+model Job {
+  id           String   @id @default(cuid())
+  title        String
+  orgId        String   @map("org_id")
+  
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  assignments  TestAssignment[]
+  
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("jobs")
+}
+
+model Test {
+  id          String   @id @default(cuid())
+  slug        String   @unique // e.g., 'reaction-time', 'gcat', or 'test-xyz'
+  name        String
+  description String?
+  orgId       String?  @map("org_id")
+  isCustom    Boolean  @default(false)
+  
+  questions   Question[]
+  assignments TestAssignment[]
+  
+  organization Organization? @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("tests")
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  SHORT_ANSWER
+}
+
+model Question {
+  id          String       @id @default(cuid())
+  testId      String       @map("test_id")
+  text        String
+  type        QuestionType @default(MULTIPLE_CHOICE)
+  order       Int          @default(0)
+  
+  options     Option[]
+  test        Test         @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  @@map("questions")
+}
+
+model Option {
+  id          String   @id @default(cuid())
+  questionId  String   @map("question_id")
+  text        String
+  isCorrect   Boolean  @default(false)
+
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("options")
+}
+
+enum TestStatus {
+  PENDING
+  STARTED
+  COMPLETED
+}
+
+model TestAssignment {
+  id          String     @id @default(cuid())
+  userId      String     @map("user_id")
+  testId      String     @map("test_id")
+  jobId       String?    @map("job_id")  // Optional: Can be assigned independent of a job
+  orgId       String     @map("org_id")  // NEW: Links the test assignment to a specific organization
+  
+  status      TestStatus @default(PENDING)
+  score       Float?
+  metaData    Json?      // Original metadata implementation (e.g., duration, raw answers)
+  proctoringFlags Json?  // NEW: Array of { timestamp, reason, base64Snapshot }
+  
+  createdAt   DateTime   @default(now()) @map("created_at")
+  startedAt   DateTime?  @map("started_at")
+  completedAt DateTime?  @map("completed_at")
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test        Test         @relation(fields: [testId], references: [id], onDelete: Cascade)
+  job         Job?         @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([orgId])
+  @@index([status])
+  @@map("test_assignments")
+}
