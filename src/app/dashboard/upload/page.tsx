@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import { processBulkCandidates } from '@/actions/bulkUpload';
 import { getAvailableTests } from '@/actions/getTests';
-import { useSession } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
 
-export default function UploadCandidates() {
+function UploadCandidatesInner() {
   const { data: session } = useSession();
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<string>('');
@@ -166,5 +166,13 @@ export default function UploadCandidates() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function UploadCandidates() {
+  return (
+    <SessionProvider>
+      <UploadCandidatesInner />
+    </SessionProvider>
   );
 }
