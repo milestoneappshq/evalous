@@ -3,14 +3,14 @@ import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 import LinkedIn from "next-auth/providers/linkedin"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from '@/lib/prisma';
 import { Pool } from "pg"
 import { PrismaPg } from "@prisma/adapter-pg"
 
 const connectionString = process.env.DATABASE_URL
 const pool = new Pool({ connectionString })
 const adapter = new PrismaPg(pool)
-const prisma = new PrismaClient({ adapter })
+
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET || "a_very_secure_randomly_generated_auth_secret_for_local_testing",

@@ -1,10 +1,10 @@
 "use server";
 
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { sendEmail } from '@/lib/email';
 
-const prisma = new PrismaClient();
+
 
 /**
  * Enhanced: Processes CSV data to create users, link to an organization,

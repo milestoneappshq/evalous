@@ -1,13 +1,13 @@
 "use server";
 
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { auth } from '@/auth';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-const prisma = new PrismaClient();
+
 
 // Ensure upload directory exists
 const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads', 'proctoring');

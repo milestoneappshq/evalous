@@ -1,11 +1,11 @@
 "use server";
 
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { auth } from '@/auth';
 import { saveTestResult } from '@/actions/saveTest';
 
-const prisma = new PrismaClient();
+
 
 export async function submitCustomTest(
   slug: string,

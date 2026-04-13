@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import DynamicRunner from '@/components/DynamicRunner';
 import { TEST_METADATA } from './metadata';
 
-const prisma = new PrismaClient();
+
 
 // Dynamically import benchmark components to keep the main bundle light
 const SequenceMemory = dynamic(() => import('@/components/benchmarks/SequenceMemory'));

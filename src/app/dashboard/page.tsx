@@ -1,6 +1,6 @@
 import { auth, signOut } from "@/auth"
 import { redirect } from "next/navigation"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from '@/lib/prisma';
 import { 
   getOrgStats, 
   getRecentActivity, 
@@ -10,7 +10,7 @@ import { StatCard, ResultsTable } from "@/components/dashboard/DashboardElements
 import { ScoreChart } from "@/components/dashboard/ScoreChart"
 import { Users, ClipboardCheck, BarChart3, TrendingUp } from "lucide-react"
 
-const prisma = new PrismaClient()
+
 
 export default async function DashboardPage() {
   const session = await auth()

@@ -1,9 +1,9 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
 import { auth } from "@/auth";
 
-const prisma = new PrismaClient();
+
 
 /**
  * Returns summary statistics for an organization.
