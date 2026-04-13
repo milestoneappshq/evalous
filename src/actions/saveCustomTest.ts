@@ -34,7 +34,7 @@ export async function saveCustomAssessment(
   }
 
   try {
-    const slug = \`\${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-\${Date.now().toString().slice(-4)}\`;
+    const slug = `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${Date.now().toString().slice(-4)}`;
 
     const newTest = await prisma.test.create({
       data: {
