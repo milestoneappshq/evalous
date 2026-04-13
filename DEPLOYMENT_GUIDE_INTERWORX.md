@@ -1,117 +1,77 @@
 # Deployment Guide: Evalous on InterWorx (EL9)
 
-This guide is tailored for an **Enterprise Linux 9 (EL9)** environment (AlmaLinux 9 / Rocky Linux 9) managed by **InterWorx/SiteWorx**, using **Apache** as the web server and **Supervisord** as the process manager.
+This guide is optimized for an **Enterprise Linux 9 (EL9)** environment (AlmaLinux 9 / Rocky Linux 9) managed by **InterWorx/SiteWorx**. It leverages our professional `deploy.sh` script for atomic builds and persistence.
 
-## 🏗️ Environment Prerequisites
+---
+
+## 🏗️ Step 1: Server Preparation
 
 ### 1. Node.js on EL9
-LiquidWeb's EL9 environment may not have Node.js installed by default. Install it for all users via `dnf`:
+Ensure Node.js 20+ is installed on the server (Root access required once):
 ```bash
-sudo dnf module enable nodejs:18 -y
+sudo dnf module enable nodejs:20 -y
 sudo dnf install nodejs -y
 ```
 
-### 2. PostgreSQL (Database)
-InterWorx usually bundles MariaDB. Since **Evalous** requires PostgreSQL, you'll need to install it:
+### 2. Install PM2 (Process Manager)
+PM2 will keep the app running and restart it if the server reboots:
 ```bash
-sudo dnf install postgresql-server postgresql-contrib -y
-sudo postgresql-setup --initdb
-sudo systemctl enable --now postgresql
+sudo npm install -p pm2 -g
 ```
-*Alternatively, use a managed database like [Supabase](https://supabase.com) or [Neon](https://neon.tech) and use their connection string.*
 
 ---
 
-## 🚀 Step 1: SiteWorx Service Configuration
+## 🚀 Step 2: SiteWorx Deployment
 
-Create a new SiteWorx account for `evalous.yourdomain.com`.
-The app will reside in `/home/[user]/evalous.yourdomain.com/`.
-
-1.  **SSH as the Siteworx User**.
-2.  **Clone the Repository**:
+1.  **SSH into the Server** as your SiteWorx user (`evalous`).
+2.  **Clone/Upload the Code**:
     ```bash
-    cd /home/[user]/evalous.yourdomain.com/
-    git clone <your-repo> .
-    npm install
+    cd /home/evalous/evalous.milestoneapps.com/html
+    # Clone your repo here or upload via SFTP
     ```
-3.  **App Configuration**:
-    Create the `.env.production` file:
+3.  **Configure Environment Variables**:
+    Create the `.env` file in the root directory:
     ```bash
-    cp .env.example .env.production
-    nano .env.production
+    nano .env
     ```
-    Ensure `NEXTAUTH_URL` is set to `https://evalous.yourdomain.com`.
+    Paste your Supabase credentials (`DATABASE_URL`, `DIRECT_URL`) and the `AUTH_SECRET`. 
+
+4.  **Execute the One-Click Deploy**:
+    ```bash
+    chmod +x deploy.sh
+    ./deploy.sh
+    ```
+    This script will:
+    - Create a persistent data folder at `~/evalous_data/`.
+    - Symlink it to `public/uploads`.
+    - Sync the database schema to Supabase.
+    - Build and launch the app via PM2.
 
 ---
 
-## 🛠️ Step 2: Build & Database Initialization
+## 🌐 Step 3: Apache Reverse Proxy
 
-Generate the Prisma client and build the Next.js production bundle:
-```bash
-npx prisma generate
-npx prisma migrate deploy
-npm run prisma:seed
-npm run build
-```
+SiteWorx uses Apache on port 80/443. We need to proxy traffic to our Next.js app on port 3000.
 
----
+1.  Log in to **SiteWorx Control Panel**.
+2.  Go to **Hosting Features** > **Web Server** > **Apache Directives**.
+3.  Paste the following at the bottom of the VirtualHost config:
 
-## ⚙️ Step 3: Supervisord Process Configuration
-
-Since **Evalous** is a Node.js app, we need **Supervisord** to keep it running in the background.
-
-Create a new config file as **root**:
-```bash
-sudo nano /etc/supervisord.d/evalous.ini
-```
-
-**Insert the following configuration**:
-```ini
-[program:evalous]
-directory=/home/[user]/evalous.yourdomain.com/
-command=npm start
-user=[user]
-autostart=true
-autorestart=true
-stderr_logfile=/var/log/evalous.err.log
-stdout_logfile=/var/log/evalous.out.log
-environment=NODE_ENV="production",PORT="3000"
-```
-
-**Restart Supervisord**:
-```bash
-sudo supervisorctl reread
-sudo supervisorctl update
-sudo supervisorctl status evalous
-```
-
----
-
-## 🌐 Step 4: Apache Reverse Proxy (.htaccess)
-
-Since Apache is the primary web server on port 80/443, we need to proxy traffic to the Node.js process on port 3000. 
-
-**Recommended**: Use the `.htaccess` file in your `html` directory or the SiteWorx Apache Directives.
-
-Create/Edit `/home/[user]/evalous.yourdomain.com/html/.htaccess`:
 ```apache
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
-
-ProxyPassReverse / http://127.0.0.1:3000/
+ProxyRequests Off
 ProxyPreserveHost On
+ProxyPass / http://127.0.0.1:3000/
+ProxyPassReverse / http://127.0.0.1:3000/
 ```
 
-> [!IMPORTANT]
-> Ensure **mod_proxy** and **mod_proxy_http** are enabled in Apache. On EL9, this is standard, but you may need to check `/etc/httpd/conf.modules.d/`.
+4.  **SSL**: Go to **Hosting Features** > **SSL Certificates** and enable **Let's Encrypt** for `evalous.milestoneapps.com`.
 
 ---
 
-## 🔐 SSL & Security
-- **SiteWorx Let's Encrypt**: Use the built-in SiteWorx tool to generate an SSL certificate for your domain. 
-- **Firewall**: Ensure port 3000 is NOT exposed to the public; only Apache should access it locally.
+## 🛡️ Maintenance & Logs
+*   **Check Logs**: `pm2 logs evalous-app`
+*   **Monitor App**: `pm2 monit`
+*   **Redeploy**: Simply run `./deploy.sh` inside the folder whenever you push new code.
 
 ---
-*Status: Specialized InterWorx Configuration Finalized.*
+*Status: Professional Cloud-Hybrid Deployment Guide Finalized.*

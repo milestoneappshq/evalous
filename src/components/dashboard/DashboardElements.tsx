@@ -173,6 +173,9 @@ export function ResultsTable({ results }: { results: any[] }) {
                                  src={flag.base64Snapshot} 
                                  alt="Violation Snapshot" 
                                  className="w-full h-auto aspect-video object-cover"
+                                 onError={(e) => {
+                                   (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800'; // Fallback
+                                 }}
                                />
                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent flex items-bottom p-4">
                                   <span className="text-[10px] text-white/50 uppercase font-mono mt-auto">Hardware ID Snapshot: SEC-CONF-AI</span>
