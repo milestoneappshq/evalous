@@ -20,11 +20,12 @@ const EQTest = dynamic(() => import('@/components/EQTest'));
 const ReactionTime = dynamic(() => import('@/components/ReactionTime'));
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const meta = TEST_METADATA[params.slug];
+  const { slug } = await params;
+  const meta = TEST_METADATA[slug];
   if (meta) {
     return {
       title: meta.title,
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CustomTestPage({ params }: Props) {
-  const slug = params.slug;
+  const { slug } = await params;
 
   // 1. Handle Standalone/Benchmark Tests first
   const benchmarkMeta = TEST_METADATA[slug];
