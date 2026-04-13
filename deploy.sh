@@ -50,6 +50,7 @@ npm install
 
 # --- 4. BUILD APPLICATION ---
 echo "🏗️ [4/6] BUILDING PRODUCTION BUNDLE..."
+npx prisma generate
 npm run build
 
 # --- 5. SYNC DATABASE (SUPABASE) ---
