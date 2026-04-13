@@ -15,6 +15,14 @@ UPLOADS_LINK="$WEB_ROOT/public/uploads"
 
 echo "🚀 [1/6] INITIALIZING DEPLOYMENT PIPELINE..."
 
+# Load Environment Variables from .env
+if [ -f .env ]; then
+    export $(grep -v '^#' .env | xargs)
+    echo "✅ Environment variables loaded from .env"
+else
+    echo "⚠️  WARNING: .env file not found. Database sync may fail."
+fi
+
 # --- 1. PERSISTENCE LAYER SETUP ---
 echo "📂 Ensuring persistent storage directories exist..."
 mkdir -p "$STORAGE_ROOT"
