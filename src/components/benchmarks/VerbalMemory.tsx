@@ -124,7 +124,7 @@ export default function VerbalMemory({ orgId }: { orgId?: string }) {
 
         {/* HUD */}
         {gameState === 'playing' && (
-          <div className="absolute top-4 w-full px-8 flex justify-between items-center text-sm font-bold uppercase tracking-widest text-slate-500">
+          <div className="absolute top-4 w-full px-8 flex justify-between items-center text-sm font-bold uppercase tracking-widest text-slate-400">
              <div>Score: <span className="text-white text-xl ml-2">{score}</span></div>
              <div className="flex gap-2">
                 {[...Array(3)].map((_, i) => (
@@ -136,7 +136,7 @@ export default function VerbalMemory({ orgId }: { orgId?: string }) {
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">Neuroscience of Verbal Memory</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">Neuroscience of Verbal Memory</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            Measures the effectiveness of the phonological loop and long-term encoding pathways.
            Highly correlated with linguistic performance, high-level negotiation skills, and information retention.
@@ -145,3 +145,4 @@ export default function VerbalMemory({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

@@ -16,7 +16,7 @@ const COLORS = ['#10b981', '#06b6d4', '#6366f1', '#8b5cf6', '#ec4899'];
 export function ScoreChart({ data }: { data: { name: string; average: number }[] }) {
   if (data.length === 0) {
     return (
-      <div className="h-[300px] flex items-center justify-center border border-slate-800 rounded-xl bg-slate-900 text-slate-500 font-medium">
+      <div className="h-[300px] flex items-center justify-center border border-slate-800 rounded-xl bg-slate-900 text-slate-400 font-medium">
         (No scoring data available yet)
       </div>
     );
@@ -26,7 +26,7 @@ export function ScoreChart({ data }: { data: { name: string; average: number }[]
     <div className="h-[350px] w-full bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-2xl">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-bold text-white tracking-tight">Average Scores</h3>
-        <div className="text-xs text-slate-500 bg-slate-950 px-2 py-1 rounded">By Test Type</div>
+        <div className="text-xs text-slate-400 bg-slate-950 px-2 py-1 rounded">By Test Type</div>
       </div>
       
       <ResponsiveContainer width="100%" height="100%">
@@ -66,3 +66,4 @@ export function ScoreChart({ data }: { data: { name: string; average: number }[]
     </div>
   );
 }
+

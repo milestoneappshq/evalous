@@ -97,7 +97,7 @@ export default function SequenceMemory({ orgId }: { orgId?: string }) {
       <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
         
         {/* Score Overlay */}
-        <div className="absolute top-4 right-6 text-sm font-bold text-slate-500 uppercase tracking-widest">
+        <div className="absolute top-4 right-6 text-sm font-bold text-slate-400 uppercase tracking-widest">
           Level <span className="text-white ml-2 text-xl font-black">{level}</span>
         </div>
 
@@ -165,7 +165,7 @@ export default function SequenceMemory({ orgId }: { orgId?: string }) {
 
       {/* SEO Content Placeholder */}
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">About the Sequence Memory Test</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">About the Sequence Memory Test</h4>
         <p className="text-xs leading-relaxed text-slate-400">
           The Sequence Memory test measures working memory capacity and visual-spatial processing. 
           By requiring the brain to encode, maintain, and retrieve a growing temporal sequence, 
@@ -175,3 +175,4 @@ export default function SequenceMemory({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

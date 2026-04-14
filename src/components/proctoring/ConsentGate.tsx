@@ -53,7 +53,7 @@ export function ConsentGate({ onAccept, orgName }: ConsentGateProps) {
           </div>
 
           <div className="w-full bg-slate-950 rounded-2xl p-6 border border-slate-800 text-left space-y-6 my-4">
-            <h3 className="text-white font-bold tracking-widest uppercase text-xs mb-4 text-center text-slate-500">Proctoring Rules</h3>
+            <h3 className="text-white font-bold tracking-widest uppercase text-xs mb-4 text-center text-slate-400">Proctoring Rules</h3>
             
             <div className="flex gap-4">
               <div className="shrink-0 mt-1">
@@ -112,3 +112,4 @@ export function ConsentGate({ onAccept, orgName }: ConsentGateProps) {
     </div>
   );
 }
+

@@ -98,7 +98,7 @@ export default function EQTest({ orgId }: { orgId?: string }) {
           {gameState === 'playing' && (
             <motion.div key={currentIdx} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} className="w-full h-full flex flex-col items-center max-w-3xl">
                
-               <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-12">
+               <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-12">
                   Social Scenario {currentIdx + 1} of {EQ_QUESTIONS.length}
                </div>
 
@@ -113,7 +113,7 @@ export default function EQTest({ orgId }: { orgId?: string }) {
                       onClick={() => handleChoice(opt.value)}
                       className="p-6 bg-slate-800/40 hover:bg-slate-800 border border-white/5 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] rounded-2xl transition-all text-slate-300 font-medium text-left leading-relaxed flex items-center gap-4 group"
                     >
-                      <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-xs text-slate-500 group-hover:border-emerald-500 group-hover:text-emerald-400 font-black">
+                      <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-xs text-slate-400 group-hover:border-emerald-500 group-hover:text-emerald-400 font-black">
                          {String.fromCharCode(65 + i)}
                       </div>
                       {opt.text}
@@ -141,7 +141,7 @@ export default function EQTest({ orgId }: { orgId?: string }) {
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">Methodology: EQ Profiling</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">Methodology: EQ Profiling</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            The Evalous EQ assessment is grounded in the Goleman framework of emotional intelligence, prioritizing five key skills: self-awareness, self-regulation, motivation, empathy, and social skills.
         </p>
@@ -149,3 +149,4 @@ export default function EQTest({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

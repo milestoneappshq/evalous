@@ -1,57 +1,57 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import ReactionTime from '@/components/ReactionTime';
+import Logo from '@/components/Logo';
+import LocalHistory from '@/components/LocalHistory';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 p-6 md:p-12 lg:p-24 flex flex-col items-center">
+      <LocalHistory />
       
       {/* Header */}
-      <div className="w-full max-w-6xl flex items-center justify-between mb-12">
-        <h1 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-teal-400 to-emerald-400 tracking-tighter">
-          Evalous
-        </h1>
-        <div className="flex gap-4">
-          <a href="/login" className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
-            Candidate Login
+      <div className="w-full max-w-6xl flex items-center justify-between mb-24">
+        <Logo />
+        <div className="flex gap-4 md:gap-8">
+          <a href="/login" className="px-4 py-2 text-xs md:text-sm font-black text-slate-500 hover:text-white transition-colors uppercase tracking-widest">
+            Identity Portal
           </a>
-          <a href="/login" className="px-4 py-2 text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white rounded-md transition-colors shadow-lg shadow-emerald-500/20">
-            Org Dashboard
+          <a href="/login" className="px-6 py-2.5 text-xs md:text-sm font-black bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl transition-all shadow-xl shadow-emerald-500/20 uppercase tracking-widest">
+            Dashboard
           </a>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="w-full max-w-6xl space-y-16">
-        <div className="text-center space-y-6 max-w-3xl mx-auto">
+      <div className="w-full max-w-6xl space-y-24">
+        <div className="text-center space-y-8 max-w-4xl mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-black uppercase tracking-widest mb-4"
+            className="inline-block px-6 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4"
           >
-            Neural Efficiency Protocol v2.5
+            Institutional Benchmark Series v2.5
           </motion.div>
-          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-tight">
-            High-Integrity <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-indigo-400">Cognitive Profiling</span>
+          <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-[0.9]">
+            High-Integrity <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-emerald-400 to-indigo-400">Cognitive Profiling</span>
           </h2>
-          <p className="text-xl text-slate-400 leading-relaxed font-medium">
-             Evalous delivers institutional-grade psychometric assessments and cognitive benchmarks with zero latency and absolute precision. 
+          <p className="text-lg md:text-2xl text-slate-300 leading-relaxed font-medium max-w-2xl mx-auto">
+             Evalous delivers military-grade psychometric assessments and neural benchmarks with microsecond precision. 
           </p>
         </div>
 
         {/* Categories Section */}
-        <div className="space-y-12">
+        <div className="space-y-16">
           
           {/* 1. Cognitive Benchmarks */}
-          <div className="space-y-6">
-            <h3 className="text-sm font-black text-slate-500 uppercase tracking-widest border-b border-white/5 pb-4">
+          <div className="space-y-8">
+            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-white/5 pb-6">
                01. Cognitive Benchmarks (Institutional)
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <TestCard 
                 title="Reaction Time" 
-                desc="Instantaneous response time to visual stimuli."
+                desc="Motor response latency to visual trigger."
                 icon="⚡"
                 href="/test/reaction-time"
               />
@@ -101,14 +101,14 @@ export default function Home() {
           </div>
 
           {/* 2. Professional Psychometrics */}
-          <div className="space-y-6">
-             <h3 className="text-sm font-black text-slate-500 uppercase tracking-widest border-b border-white/5 pb-4">
+          <div className="space-y-8">
+             <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-white/5 pb-6">
                 02. Psychometric Series (Evaluation Grade)
              </h3>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <TestCard 
                   title="GCAT (Basic)" 
-                  desc="Foundational logic, spatial, and math suite."
+                  desc="Matrix logic, spatial, and numeric suite."
                   icon="🛡️"
                   href="/gcat"
                   isPremium
@@ -141,14 +141,14 @@ function TestCard({ title, desc, icon, href, isPremium = false }: { title: strin
     <motion.a 
       href={href}
       whileHover={{ y: -5, borderColor: isPremium ? 'rgba(52, 211, 153, 0.4)' : 'rgba(255, 255, 255, 0.2)' }}
-      className={`group p-6 rounded-2xl border bg-slate-900/50 backdrop-blur-sm transition-all duration-300 ${isPremium ? 'border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.05)]' : 'border-white/5'}`}
+      className={`group p-8 rounded-3xl border bg-slate-900/40 backdrop-blur-sm transition-all duration-300 ${isPremium ? 'border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.05)]' : 'border-white/5'}`}
     >
-      <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{icon}</div>
-      <h4 className="text-lg font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+      <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">{icon}</div>
+      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
         {title}
         {isPremium && <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">PRO</span>}
       </h4>
-      <p className="text-sm text-slate-500 line-clamp-2 leading-relaxed">{desc}</p>
+      <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed font-medium">{desc}</p>
     </motion.a>
   );
 }

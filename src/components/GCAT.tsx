@@ -172,7 +172,7 @@ export default function GCAT({ orgId }: { orgId?: string }) {
               <motion.div key="active" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col h-full">
                 <div className="flex justify-between items-center mb-8">
                   <span className="text-sm font-medium text-emerald-400 tracking-wider capitalize">{questionBank[currentQuestionIndex].category} Reasoning</span>
-                  <span className="text-sm text-slate-500">Q{currentQuestionIndex + 1}/{questionBank.length}</span>
+                  <span className="text-sm text-slate-400">Q{currentQuestionIndex + 1}/{questionBank.length}</span>
                 </div>
                 
                 <h2 className="text-2xl text-white mb-8">{questionBank[currentQuestionIndex].text}</h2>
@@ -213,3 +213,4 @@ export default function GCAT({ orgId }: { orgId?: string }) {
     </>
   );
 }
+

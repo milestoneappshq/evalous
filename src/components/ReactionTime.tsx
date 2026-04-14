@@ -38,9 +38,24 @@ export default function ReactionTime({ orgId }: { orgId?: string }) {
     
     const avgScore = Math.round(finalHistory.reduce((a, b) => a + b, 0) / finalHistory.length);
     
-    // Attempt to save result if orgId is passed
+    // 1. Attempt Cloud Sync if orgId (and effectively session) is passed
     if (orgId) {
       await saveTestResult('reaction-time', avgScore, { attempts: finalHistory }, orgId);
+    }
+    
+    // 2. Always store in Local History for the session/homepage view
+    try {
+      const existing = localStorage.getItem('evalous_local_scores');
+      const parsed = existing ? JSON.parse(existing) : [];
+      const newResult = {
+        testId: 'reaction-time',
+        testName: 'Reaction Speed',
+        score: avgScore,
+        date: new Date().toISOString()
+      };
+      localStorage.setItem('evalous_local_scores', JSON.stringify([newResult, ...parsed].slice(0, 10)));
+    } catch (e) {
+      console.warn("Could not save to local history", e);
     }
     
     setIsSaving(false);

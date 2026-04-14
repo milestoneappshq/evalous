@@ -107,7 +107,7 @@ export default function TypingTest({ orgId }: { orgId?: string }) {
                 spellCheck="false"
               />
 
-              <div className="flex justify-between items-center text-sm font-bold uppercase tracking-widest text-slate-500">
+              <div className="flex justify-between items-center text-sm font-bold uppercase tracking-widest text-slate-400">
                 <div>WPM: <span className="text-white text-xl">{wpm}</span></div>
                 <div>Accuracy: <span className="text-white text-xl">{accuracy}%</span></div>
               </div>
@@ -135,7 +135,7 @@ export default function TypingTest({ orgId }: { orgId?: string }) {
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">Benchmark Details</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">Benchmark Details</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            The Typing Test is a core metric for clerical, technical, and administrative competencies.
            It measures the neurological efficiency of the motor cortex combined with linguistic pattern recognition.
@@ -144,3 +144,4 @@ export default function TypingTest({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

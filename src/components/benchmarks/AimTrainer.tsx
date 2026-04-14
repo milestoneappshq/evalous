@@ -123,14 +123,14 @@ export default function AimTrainer({ orgId }: { orgId?: string }) {
 
         {/* HUD Overlay */}
         {gameState === 'playing' && (
-          <div className="absolute top-4 left-6 text-sm font-bold text-slate-500 uppercase tracking-widest">
+          <div className="absolute top-4 left-6 text-sm font-bold text-slate-400 uppercase tracking-widest">
             Targets <span className="text-white ml-2 text-xl font-black">{targetsHit} / {totalTargets}</span>
           </div>
         )}
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">About the Aim Trainer</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">About the Aim Trainer</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            Measures saccadic eye movement and motor unit recruitment speed. Used extensively in clinical contexts
            to detect minor motor impairments and as a benchmark for high-performance cognitive states.
@@ -139,3 +139,4 @@ export default function AimTrainer({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

@@ -155,7 +155,7 @@ export default function DynamicRunner({
                 <div className="bg-slate-800 p-4 rounded-xl w-full flex justify-around border border-slate-700">
                   <div className="text-center">
                     <div className="text-2xl font-black text-indigo-400">{questions.length}</div>
-                    <div className="text-xs uppercase tracking-widest text-slate-500">Questions</div>
+                    <div className="text-xs uppercase tracking-widest text-slate-400">Questions</div>
                   </div>
                 </div>
                 <button 
@@ -226,7 +226,7 @@ export default function DynamicRunner({
                   <button 
                     onClick={handleNext}
                     disabled={!answers[questions[currentQuestionIndex].id]}
-                    className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
+                    className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-400 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
                   >
                     {currentQuestionIndex === questions.length - 1 ? 'Submit Test' : 'Next Question'}
                   </button>
@@ -288,3 +288,4 @@ export default function DynamicRunner({
     </>
   );
 }
+

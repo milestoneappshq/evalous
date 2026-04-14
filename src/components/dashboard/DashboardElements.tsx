@@ -20,7 +20,7 @@ export function StatCard({ label, value, icon: Icon, colorClass, trend }: {
     >
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-slate-400 text-sm font-medium tracking-wide uppercase">{label}</h3>
-        <Icon size={20} className="text-slate-500 group-hover:text-white transition-colors" />
+        <Icon size={20} className="text-slate-400 group-hover:text-white transition-colors" />
       </div>
       <div className="flex items-baseline justify-between">
         <p className="text-3xl font-black text-white">{value}</p>
@@ -41,7 +41,7 @@ export function ResultsTable({ results }: { results: any[] }) {
            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
            <h2 className="text-xl font-bold text-white tracking-tight">Recent Activity</h2>
         </div>
-        <span className="text-xs text-slate-500 font-mono">Real-time Stream</span>
+        <span className="text-xs text-slate-400 font-mono">Real-time Stream</span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm text-slate-400">
@@ -102,7 +102,7 @@ export function ResultsTable({ results }: { results: any[] }) {
                     {result.status}
                   </span>
                 </td>
-                <td className="p-4 text-xs text-slate-500 font-mono">
+                <td className="p-4 text-xs text-slate-400 font-mono">
                   {new Date(result.createdAt).toLocaleDateString()}
                 </td>
               </motion.tr>
@@ -136,7 +136,7 @@ export function ResultsTable({ results }: { results: any[] }) {
               <div className="p-6 border-b border-slate-800 flex items-center justify-between bg-slate-900/50">
                 <div>
                    <h3 className="text-xl font-bold text-white">Security Evidence: {candidateName}</h3>
-                   <p className="text-sm text-slate-500">AI-captured snapshots during violations</p>
+                   <p className="text-sm text-slate-400">AI-captured snapshots during violations</p>
                 </div>
                 <button 
                   onClick={() => setSelectedFlags(null)}
@@ -155,7 +155,7 @@ export function ResultsTable({ results }: { results: any[] }) {
                            <span className="font-bold uppercase tracking-widest text-xs">AI Violation #{index + 1}</span>
                          </div>
                          <h4 className="text-2xl font-black text-white leading-tight">{flag.reason}</h4>
-                         <div className="flex items-center gap-2 text-slate-500 text-sm font-mono">
+                         <div className="flex items-center gap-2 text-slate-400 text-sm font-mono">
                             <Clock className="w-4 h-4" />
                             {new Date(flag.timestamp).toLocaleString()}
                          </div>
@@ -207,4 +207,5 @@ export function ResultsTable({ results }: { results: any[] }) {
     </div>
   );
 }
+
 

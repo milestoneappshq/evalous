@@ -124,7 +124,7 @@ export default function ChimpTest({ orgId }: { orgId?: string }) {
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">Biological Basis: Chimp Test</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">Biological Basis: Chimp Test</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            The "Chimpanzee Test" is a standardized working memory assessment originally used by researchers at Kyoto University.
            It demonstrates the trade-off between conceptual generalization (human language) and high-fidelity short-term visual persistence (primate memory).
@@ -133,3 +133,4 @@ export default function ChimpTest({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

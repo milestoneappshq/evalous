@@ -116,7 +116,7 @@ export default function NumberMemory({ orgId }: { orgId?: string }) {
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">Neuroscience Profile</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">Neuroscience Profile</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            The Number Memory test evaluates the capacity of the central executive and the phonological loop. 
            In high-speed trading and technical troubleshooting, a high digit span allows for superior data correlation and error detection.
@@ -125,3 +125,4 @@ export default function NumberMemory({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

@@ -140,7 +140,7 @@ export default function VisualMemory({ orgId }: { orgId?: string }) {
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">Science of Visual Memory</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">Science of Visual Memory</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            Measures the capacity of the visual-spatial sketchpad, a component of the working memory system.
            It correlates strongly with performance in engineering, complex data analysis, and architectural tasks.
@@ -149,3 +149,4 @@ export default function VisualMemory({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

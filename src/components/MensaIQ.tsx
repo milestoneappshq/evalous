@@ -92,14 +92,14 @@ export default function MensaIQ({ orgId }: { orgId?: string }) {
           {gameState === 'playing' && (
             <motion.div key={currentIdx} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="w-full h-full flex flex-col items-center">
                
-               <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-8">
+               <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-8">
                   Matrix Problem {currentIdx + 1} of {IQ_QUESTIONS.length}
                </div>
 
                {/* Matrix Display (Mock for now, would typically use images) */}
                <div className="grid grid-cols-3 gap-2 bg-slate-800 p-4 rounded-xl mb-12 shadow-inner border border-white/5">
                   {[...Array(8)].map((_, i) => (
-                    <div key={i} className="w-24 h-24 bg-slate-700/50 rounded-lg flex items-center justify-center text-slate-500 border border-white/5">
+                    <div key={i} className="w-24 h-24 bg-slate-700/50 rounded-lg flex items-center justify-center text-slate-400 border border-white/5">
                        Rule {i+1}
                     </div>
                   ))}
@@ -140,7 +140,7 @@ export default function MensaIQ({ orgId }: { orgId?: string }) {
       </div>
 
       <div className="max-w-2xl text-center space-y-4 opacity-40">
-        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-500">Methodology: Matrix Reasoning</h4>
+        <h4 className="text-sm font-bold uppercase tracking-tighter text-slate-400">Methodology: Matrix Reasoning</h4>
         <p className="text-xs leading-relaxed text-slate-400">
            Evalous IQ tests are modeled after Raven's Progressive Matrices. These assessments measure fluid intelligence (Gf), 
            which is the capacity to think logically and solve problems in novel situations, independent of acquired knowledge.
@@ -149,3 +149,4 @@ export default function MensaIQ({ orgId }: { orgId?: string }) {
     </div>
   );
 }
+

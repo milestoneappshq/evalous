@@ -16,6 +16,21 @@
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
+
+  /* Improved Contrast Tokens */
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  @media (max-width: 640px) {
+    html {
+      font-size: 14px;
+    }
+  }
 }
 
 @layer utilities {
