@@ -4,6 +4,7 @@ import Google from "next-auth/providers/google"
 import LinkedIn from "next-auth/providers/linkedin"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from '@/lib/prisma';
+import bcrypt from "bcryptjs";
 import { Pool } from "pg"
 import { PrismaPg } from "@prisma/adapter-pg"
 
@@ -27,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.LINKEDIN_CLIENT_ID,
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
     }),
-    // --- MVP Local Testing Provider ---
+    // --- Secure Password Provider ---
     Credentials({
       name: "Standard Login",
       credentials: {
@@ -36,22 +37,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         const email = credentials?.email as string;
+        const password = credentials?.password as string;
+
+        if (!email || !password) {
+          throw new Error("Invalid credentials");
+        }
         
-        // Find existing user or mock for testing
         const user = await prisma.user.findUnique({
           where: { email },
-          include: { memberships: true }
         });
 
-        if (user) {
-           return { id: user.id, name: user.name, email: user.email, systemRole: user.systemRole };
+        if (!user || !user.password) {
+           throw new Error("Invalid credentials");
         }
 
-        // Mock Fallback if user doesn't exist yet but testing locally
-        if (email === "superadmin@platform.com") {
-          return { id: "0", name: "Super Admin", email, systemRole: "SUPER_ADMIN" }
+        const isValid = await bcrypt.compare(password, user.password);
+
+        if (!isValid) {
+          throw new Error("Invalid credentials");
         }
-        return { id: "mock-1", name: "Mock User", email, systemRole: "USER" }
+
+        return { id: user.id, name: user.name, email: user.email, systemRole: user.systemRole };
       },
     }),
   ],

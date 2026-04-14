@@ -8,9 +8,8 @@ import {
 } from "@/actions/dashboard"
 import { StatCard, ResultsTable } from "@/components/dashboard/DashboardElements"
 import { ScoreChart } from "@/components/dashboard/ScoreChart"
+import Logo from "@/components/Logo"
 import { Users, ClipboardCheck, BarChart3, TrendingUp } from "lucide-react"
-
-
 
 export default async function DashboardPage() {
   const session = await auth()
@@ -54,13 +53,14 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-white p-4 md:p-8">
       {/* Header */}
-      <header className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-8 mb-10 gap-4">
-        <div>
-          <h1 className="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-teal-400 via-emerald-400 to-indigo-400 tracking-tight">
-            {systemRole === "SUPER_ADMIN" ? "Control Center" : "Analytics Dashboard"}
-          </h1>
-          <p className="text-slate-500 font-medium mt-1">
-            {stats ? `Monitoring ${stats.totalCandidates} candidates across active assessments` : `Welcome back, ${user.email}`}
+      <header className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between border-b border-white/5 pb-8 mb-10 gap-4">
+        <div className="flex flex-col gap-4">
+          <Logo />
+          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">
+            {systemRole === "SUPER_ADMIN" ? "Control Center // " : "Analytics Dashboard // "}
+            <span className="text-emerald-400">
+              {stats ? `Monitoring ${stats.totalCandidates} candidates` : `Welcome back, ${user.email}`}
+            </span>
           </p>
         </div>
         

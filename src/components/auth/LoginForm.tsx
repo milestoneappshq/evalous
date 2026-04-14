@@ -76,7 +76,7 @@ export default function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             className="appearance-none block w-full px-3 py-2 border border-slate-700 rounded-md shadow-sm bg-slate-800 text-white placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-all"
-            placeholder="Any password works for MVP"
+            placeholder="••••••••"
           />
         </div>
       </div>
