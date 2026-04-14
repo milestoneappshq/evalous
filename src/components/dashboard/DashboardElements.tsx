@@ -103,7 +103,7 @@ export function ResultsTable({ results }: { results: any[] }) {
                   </span>
                 </td>
                 <td className="p-4 text-xs text-slate-400 font-mono">
-                  {new Date(result.createdAt).toLocaleDateString()}
+                  {new Date(result.createdAt).toISOString().split('T')[0]}
                 </td>
               </motion.tr>
             )})}
@@ -157,7 +157,7 @@ export function ResultsTable({ results }: { results: any[] }) {
                          <h4 className="text-2xl font-black text-white leading-tight">{flag.reason}</h4>
                          <div className="flex items-center gap-2 text-slate-400 text-sm font-mono">
                             <Clock className="w-4 h-4" />
-                            {new Date(flag.timestamp).toLocaleString()}
+                            {new Date(flag.timestamp).toISOString().replace('T', ' ').substring(0, 19)}
                          </div>
                          <div className="p-4 bg-red-500/5 border border-red-500/10 rounded-xl">
                             <p className="text-sm text-slate-400 italic font-medium leading-relaxed">
