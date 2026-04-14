@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { 
   BarChart, 
   Bar, 
@@ -14,6 +15,19 @@ import {
 const COLORS = ['#10b981', '#06b6d4', '#6366f1', '#8b5cf6', '#ec4899'];
 
 export function ScoreChart({ data }: { data: { name: string; average: number }[] }) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => { setIsMounted(true); }, []);
+
+  if (!isMounted) {
+    return (
+      <div className="h-[350px] w-full bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-2xl animate-pulse">
+        <div className="flex justify-between items-center mb-6">
+          <div className="h-6 w-32 bg-slate-800 rounded"></div>
+          <div className="h-5 w-20 bg-slate-800 rounded"></div>
+        </div>
+      </div>
+    );
+  }
   if (data.length === 0) {
     return (
       <div className="h-[300px] flex items-center justify-center border border-slate-800 rounded-xl bg-slate-900 text-slate-400 font-medium">
