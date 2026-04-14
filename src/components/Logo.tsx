@@ -19,6 +19,6 @@ export default function Logo({ className = "" }: { className?: string }) {
       <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 tracking-tighter">
         Evalous
       </span>
-    </div>
+    </Link>
   );
 }
