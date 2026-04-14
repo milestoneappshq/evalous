@@ -1,5 +1,6 @@
 import { PrismaClient, SystemRole, OrgRole } from '@prisma/client'
 import { prisma } from '../src/lib/prisma'
+import bcrypt from "bcryptjs"
 
 
 
@@ -30,13 +31,29 @@ async function main() {
     }
   })
 
-  // 3. Create an Admin User
-  const admin = await prisma.user.upsert({
-    where: { email: 'admin@acme.com' },
-    update: {},
+  // Generate a standard test password hash: "password123"
+  const defaultPassword = await bcrypt.hash('password123', 12);
+
+  // 3. Create a Super Admin
+  await prisma.user.upsert({
+    where: { email: 'superadmin@platform.com' },
+    update: { password: defaultPassword, systemRole: SystemRole.SUPER_ADMIN },
     create: {
-      name: 'Admin User',
-      email: 'admin@acme.com',
+      name: 'Super Admin',
+      email: 'superadmin@platform.com',
+      password: defaultPassword,
+      systemRole: SystemRole.SUPER_ADMIN,
+    }
+  })
+
+  // 4. Create an Admin User (Organization Admin)
+  const admin = await prisma.user.upsert({
+    where: { email: 'admin@any.com' },
+    update: { password: defaultPassword },
+    create: {
+      name: 'Company Admin',
+      email: 'admin@any.com',
+      password: defaultPassword,
       systemRole: SystemRole.USER,
       memberships: {
         create: {
@@ -47,9 +64,9 @@ async function main() {
     }
   })
 
-  // 4. Create Mock Candidates & Results
+  // 5. Create Mock Candidates & Results
   const candidates = [
-    { name: 'Alice Smith', email: 'alice@example.com', score: 85 },
+    { name: 'Test Candidate', email: 'test@candidate.com', score: 85 },
     { name: 'Bob Jones', email: 'bob@example.com', score: 72 },
     { name: 'Charlie Brown', email: 'charlie@example.com', score: 94 },
   ]
@@ -59,10 +76,13 @@ async function main() {
   for (const c of candidates) {
     const user = await prisma.user.upsert({
       where: { email: c.email },
-      update: {},
+      update: { password: defaultPassword },
       create: {
         name: c.name,
         email: c.email,
+        password: defaultPassword,
+        // Notice: Candidates do NOT get OrgRole.ADMIN, they are just basic org users or purely candidates without memberships depending on workflow. 
+        // For testing, let's keep them as members.
         memberships: {
           create: {
             organizationId: org.id,
@@ -73,16 +93,23 @@ async function main() {
     })
 
     if (testDef) {
-      await prisma.testAssignment.create({
-        data: {
-          userId: user.id,
-          testId: testDef.id,
-          orgId: org.id,
-          status: 'COMPLETED',
-          score: c.score,
-          completedAt: new Date()
-        }
+      // Check if assignment already exists to prevent crashing seed multiple times
+      const existing = await prisma.testAssignment.findFirst({
+        where: { userId: user.id }
       })
+
+      if (!existing) {
+        await prisma.testAssignment.create({
+          data: {
+            userId: user.id,
+            testId: testDef.id,
+            orgId: org.id,
+            status: 'COMPLETED',
+            score: c.score,
+            completedAt: new Date()
+          }
+        })
+      }
     }
   }
 
