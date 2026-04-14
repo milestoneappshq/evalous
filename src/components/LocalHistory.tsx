@@ -47,7 +47,7 @@ export default function LocalHistory() {
             <div key={idx} className="flex items-center justify-between group">
               <div className="space-y-1">
                 <div className="text-[10px] font-black text-white group-hover:text-emerald-400 transition-colors uppercase tracking-tight">{item.testName}</div>
-                <div className="text-[8px] text-slate-400 font-bold uppercase">{new Date(item.date).toLocaleDateString()}</div>
+                <div className="text-[8px] text-slate-400 font-bold uppercase">{new Date(item.date).toISOString().split('T')[0]}</div>
               </div>
               <div className="text-sm font-black text-emerald-400 font-mono">
                 {item.score}ms
