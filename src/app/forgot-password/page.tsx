@@ -1,5 +1,10 @@
-import Link from 'next/link';
 import Logo from '@/components/Logo';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Recovery Protocol | Identity Access",
+  description: "Initiate the secure handshake to restore access to your Evalous professional profile.",
+}
 
 export default function ForgotPasswordPage() {
   return (

@@ -1,5 +1,10 @@
-import Link from 'next/link';
 import Logo from '@/components/Logo';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Initialize Account | Evalous Protocol",
+  description: "Request institutional access or initialize candidate benchmarks on the Evalous platform.",
+}
 
 export default function SignupPage() {
   return (

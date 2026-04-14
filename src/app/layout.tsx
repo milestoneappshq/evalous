@@ -13,8 +13,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Evalous | Professional Cognitive & Skill Assessment",
+  title: {
+    default: "Evalous | Professional Cognitive & Skill Assessment",
+    template: "%s | Evalous"
+  },
   description: "The premier platform for high-integrity cognitive benchmarks, psychometric assessments, and recruitment evaluations.",
+  metadataBase: new URL('https://evalous.milestoneapps.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Evalous | High-Integrity Cognitive Profiling",
+    description: "Military-grade psychometric assessments and neural benchmarks with microsecond precision.",
+    url: 'https://evalous.milestoneapps.com',
+    siteName: 'Evalous',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Evalous | Professional Cognitive Assessment",
+    description: "Benchmark your cognitive profile with institutional precision.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  }
 };
 
 import Footer from "@/components/layout/Footer";

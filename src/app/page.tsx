@@ -9,6 +9,9 @@ export default function Home() {
     <main className="min-h-screen bg-slate-950 p-6 md:p-12 lg:p-24 flex flex-col items-center">
       <LocalHistory />
       
+      {/* Search Engine Brand Marker */}
+      <h1 className="sr-only">Evalous | Professional Cognitive & Skill Assessment</h1>
+      
       {/* Header */}
       <div className="w-full max-w-6xl flex items-center justify-between mb-24">
         <Logo />
@@ -45,9 +48,9 @@ export default function Home() {
           
           {/* 1. Cognitive Benchmarks */}
           <div className="space-y-8">
-            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-white/5 pb-6">
+            <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-white/5 pb-6">
                01. Cognitive Benchmarks (Institutional)
-            </h3>
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <TestCard 
                 title="Reaction Time" 
@@ -102,9 +105,9 @@ export default function Home() {
 
           {/* 2. Professional Psychometrics */}
           <div className="space-y-8">
-             <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-white/5 pb-6">
+             <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] border-b border-white/5 pb-6">
                 02. Psychometric Series (Evaluation Grade)
-             </h3>
+             </h2>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <TestCard 
                   title="GCAT (Basic)" 
@@ -144,10 +147,10 @@ function TestCard({ title, desc, icon, href, isPremium = false }: { title: strin
       className={`group p-8 rounded-3xl border bg-slate-900/40 backdrop-blur-sm transition-all duration-300 ${isPremium ? 'border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.05)]' : 'border-white/5'}`}
     >
       <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">{icon}</div>
-      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
         {title}
         {isPremium && <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">PRO</span>}
-      </h4>
+      </h3>
       <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed font-medium">{desc}</p>
     </motion.a>
   );

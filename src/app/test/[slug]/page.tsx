@@ -53,6 +53,8 @@ export default async function CustomTestPage({ params }: Props) {
           </div>
         </div>
 
+        <h1 className="sr-only">{benchmarkMeta.title}</h1>
+
         <div className="w-full flex flex-col lg:flex-row gap-12 items-start">
           <div className="flex-1 w-full">
              {slug === 'sequence-memory' && <SequenceMemory />}
@@ -135,6 +137,8 @@ export default async function CustomTestPage({ params }: Props) {
           Proctored Assessment Room
         </div>
       </div>
+      
+      <h1 className="sr-only">{test.name} Professional Assessment</h1>
       
       <DynamicRunner 
         testId={test.id}

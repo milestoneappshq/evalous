@@ -1,4 +1,11 @@
 import GCAT from '@/components/GCAT';
+import Logo from '@/components/Logo';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "GCAT | Professional Psychometric Assessment",
+  description: "Advanced matrix reasoning, numerical, and spatial cognitive evaluation suite.",
+};
 
 export default function GCATPage() {
   return (
@@ -6,10 +13,9 @@ export default function GCATPage() {
       
       {/* Mini Header */}
       <div className="w-full max-w-4xl flex items-center justify-between mb-8 opacity-80">
-        <h1 className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-teal-400 to-emerald-400 tracking-tighter">
-          Evalous
-        </h1>
-        <a href="/dashboard" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+        <Logo />
+        <h1 className="sr-only">GCAT Professional Psychometric Suite</h1>
+        <a href="/dashboard" className="text-sm font-bold text-slate-500 hover:text-white transition-colors uppercase tracking-widest">
           Exit to Dashboard
         </a>
       </div>

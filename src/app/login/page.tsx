@@ -3,6 +3,12 @@ import { redirect } from "next/navigation"
 import LoginForm from "@/components/auth/LoginForm"
 import Logo from "@/components/Logo"
 import Link from "next/link"
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Identity Access Portal | Evalous",
+  description: "Secure institutional access to the Evalous psychometric suite and cognitive benchmarks.",
+}
 
 export default async function LoginPage() {
   const session = await auth()
