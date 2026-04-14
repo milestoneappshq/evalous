@@ -1,8 +1,15 @@
+"use client";
+
 import React from 'react';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function Logo({ className = "" }: { className?: string }) {
+  const { data: session } = useSession();
+  const href = session ? "/dashboard" : "/";
+
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <Link href={href} className={`flex items-center gap-2 transition-opacity hover:opacity-80 ${className}`}>
       <div className="relative w-8 h-8 flex items-center justify-center">
         {/* Abstract double-diamond logo representing benchmarks/precision */}
         <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-teal-400 rotate-45 rounded-sm opacity-20 animate-pulse"></div>

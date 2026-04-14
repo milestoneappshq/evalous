@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import Footer from "@/components/layout/Footer";
+import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({
   children,
@@ -30,8 +31,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <SessionProvider>
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );

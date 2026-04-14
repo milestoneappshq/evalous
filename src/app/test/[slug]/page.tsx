@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import DynamicRunner from '@/components/DynamicRunner';
 import { TEST_METADATA } from './metadata';
-
+import Logo from '@/components/Logo';
 
 
 // Dynamically import benchmark components to keep the main bundle light
@@ -47,9 +47,7 @@ export default async function CustomTestPage({ params }: Props) {
     return (
       <main className="min-h-screen bg-slate-950 p-6 md:p-12 lg:p-24 flex flex-col items-center">
         <div className="w-full max-w-6xl flex items-center justify-between mb-12 opacity-80">
-          <h1 className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-teal-400 to-emerald-400 tracking-tighter">
-            Evalous
-          </h1>
+          <Logo />
           <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">
             Institutional Benchmark Module
           </div>
@@ -132,9 +130,7 @@ export default async function CustomTestPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-slate-950 p-6 md:p-12 lg:p-24 flex flex-col items-center">
       <div className="w-full max-w-4xl flex items-center justify-between mb-8 opacity-80">
-        <h1 className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-teal-400 to-emerald-400 tracking-tighter">
-          Evalous
-        </h1>
+        <Logo />
         <div className="text-sm font-medium text-slate-400">
           Proctored Assessment Room
         </div>

@@ -13,7 +13,8 @@ const adapter = new PrismaPg(pool)
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  secret: process.env.AUTH_SECRET || "a_very_secure_randomly_generated_auth_secret_for_local_testing",
+  trustHost: true,
+  secret: process.env.AUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   providers: [
